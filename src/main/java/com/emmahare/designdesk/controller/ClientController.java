@@ -43,4 +43,13 @@ public class ClientController {
 
             return "clients/details";
         }
+
+        @GetMapping("/{id}/edit")
+        public String showEditForm(@PathVariable Long id, Model model) {
+            Client client = clientService.findById(id);
+
+            model.addAttribute("client", client);
+
+            return "clients/edit";
+        }
 }
