@@ -33,6 +33,10 @@
             Notes:
             <span th:text="${client.notes}">Notes</span>
         </p>
+
+        <a th:href="@{/clients/{id}(id=${client.id})}">
+            View
+        </a>
         <hr>
     </div>
 
