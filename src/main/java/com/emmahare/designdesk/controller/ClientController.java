@@ -1,10 +1,14 @@
 package com.emmahare.designdesk.controller;
 
+import com.emmahare.designdesk.model.Client;
 import com.emmahare.designdesk.service.ClientService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
     @Controller
     @RequestMapping("/clients")
 public class ClientController {
@@ -20,5 +24,17 @@ public class ClientController {
             model.addAttribute("clients", clientService.findAll());
 
             return "clients/index";
+        }
+
+        @GetMapping("/new")
+        public String showCreateForm(Model model) {
+            model.addAttribute("client", new Client());
+            return "clients/new";
+        }
+
+        @PostMapping
+        public String createClient(@ModelAttribute Client client) {
+            clientService.save(client);
+            return "redirect:/clients";
         }
 }

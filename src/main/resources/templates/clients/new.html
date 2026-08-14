@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" xlmns:th="htto://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add Client - DesignDesk</title>
+</head>
+<body>
+    <h1>Add New Client</h1>
+
+    <form th:action="@{/clients}" th:object="${client}" method="post">
+
+        <div>
+            <label for="name">Name</label>
+            <input id="name" type="text" th:field="*{name}" required>
+        </div>
+
+        <div>
+            <label for="email">Email</label>
+            <input id="email" type="email" th:field="*{email}">
+        </div>
+
+        <div>
+            <label for="instagramHandle">Instagram</label>
+            <input id="instagramHandle" type="text" th:field="*{instagramHandle}">
+        </div>
+
+        <div>
+            <label for="notes">Notes</label>
+            <textarea id="notes" type="text" th:field="*{notes}"></textarea>
+        </div>
+
+        <button type="submit">Save Client</button>
+
+    </form>
+
+    <a href="/clients">Back to Clients</a>
+
+</body>
+</html>

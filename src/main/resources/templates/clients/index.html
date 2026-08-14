@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Clients - DesignDesk</title>
+</head>
+<body>
+    <h1>Clients</h1>
+
+    <a href="/clients/new">Add New Client</a>
+
+    <p th:if="${clients.isEmpty()}">
+        No clients found.
+    </p>
+
+    <div th:each="client : ${clients}">
+        <h2 th:text="${client.name}">Client Name</h2>
+
+        <p>
+            Email:
+            <span th:text="${client.email}">email@example.com</span>
+        </p>
+
+        <p>
+            Instagram:
+            <span th:text="${client.instagramHandle}">@example</span>
+        </p>
+
+        <p>
+            Notes:
+            <span th:text="${client.notes}">Notes</span>
+        </p>
+        <hr>
+    </div>
+
+</body>
+</html>
