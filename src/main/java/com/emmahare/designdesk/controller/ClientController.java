@@ -4,12 +4,9 @@ import com.emmahare.designdesk.model.Client;
 import com.emmahare.designdesk.service.ClientService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-    @Controller
+@Controller
     @RequestMapping("/clients")
 public class ClientController {
 
@@ -36,5 +33,14 @@ public class ClientController {
         public String createClient(@ModelAttribute Client client) {
             clientService.save(client);
             return "redirect:/clients";
+        }
+
+        @GetMapping("/{id}")
+        public String showClient(@PathVariable Long id, Model model) {
+            Client client = clientService.findById(id);
+
+            model.addAttribute("client", client);
+
+            return "clients/details";
         }
 }

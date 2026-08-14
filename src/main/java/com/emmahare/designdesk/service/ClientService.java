@@ -22,4 +22,13 @@ public class ClientService {
     public Client save(Client client) {
         return clientRepository.save(client);
     }
+
+    public Client findById(Long id) {
+        return clientRepository.findById(id)
+                .orElseThrow(() ->
+                        new IllegalArgumentException(
+                                "Client with ID" + id + " was not found."
+                        )
+                );
+    }
 }
