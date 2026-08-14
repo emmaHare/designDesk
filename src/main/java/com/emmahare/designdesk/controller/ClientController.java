@@ -52,4 +52,21 @@ public class ClientController {
 
             return "clients/edit";
         }
+
+        @PostMapping("/{id}/edit")
+        public String updateClient(
+                @PathVariable Long id,
+                @ModelAttribute Client client
+        ) {
+            Client existingClient = clientService.findById(id);
+
+            existingClient.setName(client.getName());
+            existingClient.setEmail(client.getEmail());
+            existingClient.setInstagramHandle(client.getInstagramHandle());
+            existingClient.setNotes(client.getNotes());
+
+            clientService.save(existingClient);
+
+            return "redirect:/clients/" + id;
+        }
 }
