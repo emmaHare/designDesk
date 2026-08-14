@@ -32,6 +32,10 @@
         <button type="submit">Delete Client</button>
     </form>
 
+    <a th:href="@{/clients/{id}/edit(id=${client.id})}">
+        Edit Client
+    </a>
+
     <a href="/clients">Back to Clients</a>
 </body>
 </html>
