@@ -27,7 +27,7 @@ public class ClientService {
         return clientRepository.findById(id)
                 .orElseThrow(() ->
                         new IllegalArgumentException(
-                                "Client with ID" + id + " was not found."
+                                "Client with ID " + id + " was not found."
                         )
                 );
     }
