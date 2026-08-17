@@ -4,6 +4,8 @@ import com.emmahare.designdesk.model.Project;
 import com.emmahare.designdesk.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProjectService {
 
@@ -11,6 +13,10 @@ public class ProjectService {
 
     public ProjectService(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
+    }
+
+    public List<Project> findAll() {
+        return projectRepository.findAll();
     }
 
     public Project findById(Long id) {
