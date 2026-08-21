@@ -9,12 +9,21 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-
-
     @ExceptionHandler(ClientNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleClientNotFound(
             ClientNotFoundException exception,
+            Model model
+    ) {
+        model.addAttribute("errorMessage", exception.getMessage());
+
+        return "error/404";
+    }
+
+    @ExceptionHandler(ProjectNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleProjectNotFound(
+            ProjectNotFoundException exception,
             Model model
     ) {
         model.addAttribute("errorMessage", exception.getMessage());
