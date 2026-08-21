@@ -109,28 +109,15 @@ public class ClientControllerTest {
 
     @Test
     void updateClientShouldSaveChangesAndRedirect() {
-        Client existingClient = new Client();
-        existingClient.setName("Old Name");
-        existingClient.setEmail("old@example.com");
-        existingClient.setInstagramHandle("@old");
-        existingClient.setNotes("Old Notes");
-
         Client editedClient = new Client();
         editedClient.setName("New Name");
         editedClient.setEmail("new@example.com");
         editedClient.setInstagramHandle("@new");
         editedClient.setNotes("New notes");
 
-        when(clientService.findById(1L)).thenReturn(existingClient);
-
         String viewName = clientController.updateClient(1L, editedClient);
 
-        assertEquals("New Name", existingClient.getName());
-        assertEquals("new@example.com", existingClient.getEmail());
-        assertEquals("@new", existingClient.getInstagramHandle());
-        assertEquals("New notes", existingClient.getNotes());
-
-        verify(clientService).save(existingClient);
+        verify(clientService).update(1L, editedClient);
 
         assertEquals("redirect:/clients/1", viewName);
     }

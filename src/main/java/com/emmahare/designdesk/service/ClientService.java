@@ -19,6 +19,17 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
+    public Client update(Long id, Client updatedClient) {
+        Client existingClient = findById(id);
+
+        existingClient.setName(updatedClient.getName());
+        existingClient.setEmail(updatedClient.getEmail());
+        existingClient.setInstagramHandle(updatedClient.getInstagramHandle());
+        existingClient.setNotes(updatedClient.getNotes());
+
+        return clientRepository.save(existingClient);
+    }
+
     public Client save(Client client) {
         return clientRepository.save(client);
     }

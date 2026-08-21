@@ -73,6 +73,36 @@ class ClientServiceTest {
     }
 
     @Test
+    void updateShouldUpdateExistingClient() {
+        Client existingClient = new Client();
+        existingClient.setName("Old Name");
+        existingClient.setEmail("old@example.com");
+        existingClient.setInstagramHandle("@old");
+        existingClient.setNotes("Old notes");
+
+        Client updatedClient = new Client();
+        updatedClient.setName("New Name");
+        updatedClient.setEmail("new@example.com");
+        updatedClient.setInstagramHandle("@new");
+        updatedClient.setNotes("New notes");
+
+        when(clientRepository.findById(1L))
+                .thenReturn(Optional.of(existingClient));
+
+        when(clientRepository.save(existingClient))
+                .thenReturn(existingClient);
+
+        Client result = clientService.update(1L, updatedClient);
+
+        assertEquals("New Name", result.getName());
+        assertEquals("new@example.com", result.getEmail());
+        assertEquals("@new", result.getInstagramHandle());
+        assertEquals("New notes", result.getNotes());
+
+        verify(clientRepository).save(existingClient);
+    }
+
+    @Test
     void saveShouldReturnSavedClient() {
         Client client = new Client();
         client.setName("New Client");
