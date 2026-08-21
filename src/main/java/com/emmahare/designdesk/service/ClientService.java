@@ -1,5 +1,6 @@
 package com.emmahare.designdesk.service;
 
+import com.emmahare.designdesk.exception.ClientNotFoundException;
 import com.emmahare.designdesk.model.Client;
 import com.emmahare.designdesk.repository.ClientRepository;
 import org.springframework.stereotype.Service;
@@ -36,11 +37,7 @@ public class ClientService {
 
     public Client findById(Long id) {
         return clientRepository.findById(id)
-                .orElseThrow(() ->
-                        new IllegalArgumentException(
-                                "Client with ID " + id + " was not found."
-                        )
-                );
+                .orElseThrow(() -> new ClientNotFoundException(id));
     }
 
     public void deleteById(Long id) {

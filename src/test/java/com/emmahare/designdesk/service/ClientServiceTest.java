@@ -1,5 +1,6 @@
 package com.emmahare.designdesk.service;
 
+import com.emmahare.designdesk.exception.ClientNotFoundException;
 import com.emmahare.designdesk.model.Client;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -67,7 +68,7 @@ class ClientServiceTest {
                 .thenReturn(Optional.empty());
 
         assertThrows(
-                IllegalArgumentException.class,
+                ClientNotFoundException.class,
                 () -> clientService.findById(99l)
         );
     }
