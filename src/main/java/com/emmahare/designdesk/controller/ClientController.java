@@ -1,6 +1,7 @@
 package com.emmahare.designdesk.controller;
 
 import com.emmahare.designdesk.model.Client;
+import com.emmahare.designdesk.model.Project;
 import com.emmahare.designdesk.service.ClientService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

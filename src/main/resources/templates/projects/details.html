@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://ww.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Project Details - DesignDesk</title>
+</head>
+<body>
+
+    <h1 th:text="${project.title}">Project Title</h1>
+
+    <p>
+        Type:
+        <span th:text="${project.type}">LOGO</span>
+    </p>
+
+    <p>
+        Client:
+        <span th:text="${project.client.name}">Client Name</span>
+    </p>
+
+    <p>
+        Deadline:
+        <span th:text="${project.deadline}">2026-08-20</span>
+    </p>
+
+    <p>
+        Price:
+        <span th:text="${project.price}">40.00</span>
+    </p>
+
+    <p>
+        Status:
+        <span th:text="${project.status}">PLANNED</span>
+    </p>
+
+    <p>
+        Description:
+        <span th:text="${project.description}">Project description</span>
+    </p>
+
+    <a href="/projects">Back to Projects</a>
+
+</body>
+</html>
