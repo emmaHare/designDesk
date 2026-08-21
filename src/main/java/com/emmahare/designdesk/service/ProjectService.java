@@ -32,4 +32,18 @@ public class ProjectService {
     public void deleteById(Long id) {
         projectRepository.deleteById(id);
     }
+
+    public Project update(Long id, Project updatedProject) {
+        Project existingProject = findById(id);
+
+        existingProject.setTitle(updatedProject.getTitle());
+        existingProject.setType(updatedProject.getType());
+        existingProject.setClient(updatedProject.getClient());
+        existingProject.setDeadline(updatedProject.getDeadline());
+        existingProject.setPrice(updatedProject.getPrice());
+        existingProject.setStatus(updatedProject.getStatus());
+        existingProject.setDescription(updatedProject.getDescription());
+
+        return projectRepository.save(existingProject);
+    }
 }

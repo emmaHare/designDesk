@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit Project - DesignDesk</title>
+</head>
+<body>
+
+    <h1>Edit Project</h1>
+
+    <form th:action="@{/projects/{id}/edit(id=${project.id})}"
+          th:object="${project}"
+          method="post">
+
+        <label for="title">Title:</label>
+        <input type="text" id="title" th:field="*{title}" required>
+
+        <br>
+
+        <label for="type">Type:</label>
+        <select id="type" th:field="*{type}" required>
+            <option value="LOGO">Logo</option>
+            <option value="POSTER">Poster</option>
+            <option value="COVER">Cover</option>
+            <option value="POST">Post</option>
+            <option value="BRANDING">Branding</option>
+        </select>
+
+        <br>
+
+        <label for="deadline">Deadline:</label>
+        <input type="date"
+               id="deadline"
+               th:field="*{deadline}">
+
+        <br>
+
+        <label for="price">Price:</label>
+        <input type="number"
+               id="price"
+               step="0.01"
+               min="0"
+               th:field="*{price}"
+               required>
+
+        <br>
+
+        <label for="status">Status:</label>
+        <select id="status" th:field="*{status}" required>
+            <option value="PLANNED">Planned</option>
+            <option value="IN_PROGRESS">In Progress</option>
+            <option value="FINISHED">Finished</option>
+        </select>
+
+        <br>
+
+        <label for="description">Description:</label>
+        <textarea id="description"
+                  th:field="*{description}"></textarea>
+
+        <br>
+
+        <label for="client">Client:</label>
+
+        <select id="client" th:field="*{client}" required>
+            <option th:each="client : ${clients}"
+                    th:value="${client.id}"
+                    th:text="${client.name}">
+                Client Name
+            </option>
+        </select>
+
+        <br>
+
+        <button type="submit">Save Changes</button>
+
+    </form>
+
+    <a th:href="@{/projects/{id}(id=${project.id})}">
+        Cancel
+    </a>
+</body>
+</html>

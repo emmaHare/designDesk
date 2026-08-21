@@ -48,4 +48,24 @@ public class ProjectController {
 
         return "redirect:/projects";
     }
+
+    @GetMapping("/{id}/edit")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Project project = projectService.findById(id);
+
+        model.addAttribute("project", project);
+        model.addAttribute("clients", clientService.findAll());
+
+        return "projects/edit";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String updateProject(
+            @PathVariable Long id,
+            @ModelAttribute Project project
+    ) {
+        projectService.update(id, project);
+
+        return "redirect:/projects/" + id;
+    }
 }
