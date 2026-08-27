@@ -2,6 +2,7 @@ package com.emmahare.designdesk.service;
 
 import com.emmahare.designdesk.exception.ProjectNotFoundException;
 import com.emmahare.designdesk.model.Project;
+import com.emmahare.designdesk.model.ProjectStatus;
 import com.emmahare.designdesk.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
 
@@ -45,5 +46,13 @@ public class ProjectService {
         existingProject.setDescription(updatedProject.getDescription());
 
         return projectRepository.save(existingProject);
+    }
+
+    public Project markAsFinished(Long id) {
+        Project project = findById(id);
+
+        project.setStatus(ProjectStatus.FINISHED);
+
+        return projectRepository.save(project);
     }
 }

@@ -41,6 +41,13 @@
         <span th:text="${project.description}">Project description</span>
     </p>
 
+    <form th:if="${project.status != T(com.emmahare.designdesk.model.ProjectStatus).FINISHED}"
+          th:action="@{/projects/{id}/finish(id=${project.id})}"
+          method="post">
+
+        <button type="submit">Mark as Finished</button>
+    </form>
+
     <a href="/projects">Back to Projects</a>
 
 </body>

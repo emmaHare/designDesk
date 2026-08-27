@@ -75,4 +75,11 @@ public class ProjectController {
 
         return "redirect:/projects";
     }
+
+    @PostMapping("/{id}/finish")
+    public String markProjectAsFinished(@PathVariable Long id) {
+        projectService.markAsFinished(id);
+
+        return "redirect:/projects/" + id;
+    }
 }
