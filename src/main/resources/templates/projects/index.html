@@ -10,6 +10,35 @@
 <body>
     <h1>Projects</h1>
 
+    <form method="get" action="/projects">
+        <label for="status">Filter By Status:</label>
+
+        <select id="status" name="status">
+            <option value="">All</option>
+
+            <option value="PLANNED"
+                    th:selected="${selectedStatus != null and selectedStatus.name() == 'PLANNED'}">
+                Planned
+            </option>
+
+            <option value="IN_PROGRESS"
+                    th:selected="${selectedStatus!= null and selectedStatus.name() == 'IN_PROGRESS'}">
+                In Progress
+            </option>
+
+            <option value="FINISHED"
+                    th:selected="${selectedStatus != null and selectedStatus.name() == 'FINISHED'}">
+                Finished
+            </option>
+
+        </select>
+
+        <button type="submit">Filter</button>
+
+    </form>
+
+
+
     <p th:if="${projects.isEmpty()}">
         No projects found.
     </p>

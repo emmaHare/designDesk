@@ -55,4 +55,8 @@ public class ProjectService {
 
         return projectRepository.save(project);
     }
+
+    public List<Project> findByStatus(ProjectStatus status) {
+        return projectRepository.findByStatus(status);
+    }
 }

@@ -1,6 +1,7 @@
 package com.emmahare.designdesk.controller;
 
 import com.emmahare.designdesk.model.Project;
+import com.emmahare.designdesk.model.ProjectStatus;
 import com.emmahare.designdesk.service.ClientService;
 import com.emmahare.designdesk.service.ProjectService;
 import org.springframework.stereotype.Controller;
@@ -20,8 +21,18 @@ public class ProjectController {
     }
 
     @GetMapping
-    public String showAllProjects(Model model) {
-        model.addAttribute("projects", projectService.findAll());
+    public String showAllProjects(
+            @RequestParam(required = false) ProjectStatus status,
+            Model model
+    ) {
+        if (status == null) {
+            model.addAttribute("projects", projectService.findAll());
+        } else {
+            model.addAttribute("projects", projectService.findByStatus(status));
+        }
+
+        model.addAttribute("selectedStatus", status);
+
         return "projects/index";
     }
 
