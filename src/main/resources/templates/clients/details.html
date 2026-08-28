@@ -25,6 +25,37 @@
         <span th:text="${client.notes}">Notes</span>
     </p>
 
+    <h2>Projects</h2>
+
+    <p th:if="${projects.isEmpty()}">
+        No projects for this client.
+    </p>
+
+    <div th:each="project : ${projects}">
+        <h3 th:text="${project.title}">Project Title</h3>
+
+        <p>
+            Type:
+            <span th:text="${project.type}">LOGO</span>
+        </p>
+
+        <p>
+            Status:
+            <span th:text="${project.status}">PLANNED</span>
+        </p>
+
+        <p>
+            Deadline:
+            <span th:text="${project.deadline}">2026-08-20</span>
+        </p>
+
+        <a th:href="@{/projects/{id}(id=${project.id})}">
+            View Project
+        </a>
+
+        <hr>
+    </div>
+
     <form th:action="@{/clients/{id}/delete(id=${client.id})}"
           method="post"
           onsubmit="return confirm('Are you sure you want to delete this client?');">

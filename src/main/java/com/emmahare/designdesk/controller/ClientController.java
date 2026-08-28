@@ -3,6 +3,7 @@ package com.emmahare.designdesk.controller;
 import com.emmahare.designdesk.model.Client;
 import com.emmahare.designdesk.model.Project;
 import com.emmahare.designdesk.service.ClientService;
+import com.emmahare.designdesk.service.ProjectService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +13,14 @@ import org.springframework.web.bind.annotation.*;
 public class ClientController {
 
         private final ClientService clientService;
+        private final ProjectService projectService;
 
-        public ClientController(ClientService clientService) {
+        public ClientController(
+                ClientService clientService,
+                ProjectService projectService
+        ) {
             this.clientService = clientService;
+            this.projectService = projectService;
         }
 
         @GetMapping
@@ -41,6 +47,7 @@ public class ClientController {
             Client client = clientService.findById(id);
 
             model.addAttribute("client", client);
+            model.addAttribute("projects", projectService.findByClientId(id));
 
             return "clients/details";
         }

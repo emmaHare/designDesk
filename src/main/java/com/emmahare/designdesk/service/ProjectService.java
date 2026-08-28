@@ -59,4 +59,8 @@ public class ProjectService {
     public List<Project> findByStatus(ProjectStatus status) {
         return projectRepository.findByStatus(status);
     }
+
+    public List<Project> findByClientId(Long clientId) {
+        return projectRepository.findByClientId(clientId);
+    }
 }
