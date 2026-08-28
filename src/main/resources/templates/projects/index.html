@@ -12,6 +12,8 @@
 
     <h1>Projects</h1>
 
+    <a href="/projects/new">Add New Project</a>
+
     <form method="get" action="/projects">
         <label for="status">Filter By Status:</label>
 
@@ -88,6 +90,10 @@
 
         <a th:href="@{/projects/{id}(id=${project.id})}">
             View
+        </a>
+
+        <a th:href="@{/projects/{id}/edit(id=${project.id})}">
+            Edit
         </a>
 
         <hr>
