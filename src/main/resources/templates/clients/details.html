@@ -8,6 +8,8 @@
     <title>Client Details - DesignDesk</title>
 </head>
 <body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
     <h1 th:text="${client.name}">Client Name</h1>
 
     <p>
