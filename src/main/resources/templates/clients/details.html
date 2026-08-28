@@ -56,13 +56,6 @@
         <hr>
     </div>
 
-    <form th:action="@{/clients/{id}/delete(id=${client.id})}"
-          method="post"
-          onsubmit="return confirm('Are you sure you want to delete this client?');">
-
-        <button type="submit">Delete Client</button>
-    </form>
-
     <a th:href="@{/clients/{id}/edit(id=${client.id})}">
         Edit Client
     </a>
