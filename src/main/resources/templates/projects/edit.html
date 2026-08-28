@@ -86,8 +86,6 @@
         <button type="submit">Delete Project</button>
     </form>
 
-    <a th:href="@{/projects/{id}(id=${project.id})}">
-        Cancel
-    </a>
+    <button type="button" onclick="history.back()">Back</button>
 </body>
 </html>
