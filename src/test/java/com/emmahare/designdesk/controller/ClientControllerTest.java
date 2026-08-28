@@ -2,6 +2,7 @@ package com.emmahare.designdesk.controller;
 
 import com.emmahare.designdesk.model.Client;
 import com.emmahare.designdesk.service.ClientService;
+import com.emmahare.designdesk.service.ProjectService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,11 +23,14 @@ public class ClientControllerTest {
     @Mock
     private ClientService clientService;
 
+    @Mock
+    private ProjectService projectService;
+
     private ClientController clientController;
 
     @BeforeEach
     void setUp() {
-        clientController = new ClientController(clientService);
+        clientController = new ClientController(clientService, projectService);
     }
 
     @Test
