@@ -5,10 +5,10 @@ import com.emmahare.designdesk.model.Revision;
 import com.emmahare.designdesk.service.ProjectService;
 import com.emmahare.designdesk.service.RevisionService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/revisions")
@@ -25,7 +25,7 @@ public class RevisionController {
         this.projectService = projectService;
     }
 
-    @PostMapping("/project/{projectId")
+    @PostMapping("/project/{projectId}")
     public String createRevision(
             @PathVariable Long projectId,
             @ModelAttribute Revision revision
@@ -33,9 +33,24 @@ public class RevisionController {
         Project project = projectService.findById(projectId);
 
         revision.setProject(project);
+        revision.setDate(LocalDate.now());
+        revision.setCompleted(false);
 
         revisionService.save(revision);
 
         return "redirect:/projects/" + projectId;
+    }
+
+    @GetMapping("/project/{projectId}/new")
+    public String showCreateForm(
+            @PathVariable Long projectId,
+            Model model
+    ) {
+        Project project = projectService.findById(projectId);
+
+        model.addAttribute("project", project);
+        model.addAttribute("revision", new Revision());
+
+        return "revisions/new";
     }
 }

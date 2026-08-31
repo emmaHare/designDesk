@@ -74,6 +74,10 @@
         <hr>
     </div>
 
+    <a th:href="@{/revisions/project/{projectId}/new(projectId=${project.id})}">
+        Add Revision
+    </a>
+
     <button type="button" onclick="history.back()">Back</button>
 
 </body>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add Revision - DesignDesk</title>
+</head>
+<body>
+
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <h1>Add Revision</h1>
+
+    <p>
+        Project:
+        <span th:text="${project.title}">Project Title</span>
+    </p>
+
+    <form th:action="@{/revisions/project/{projectId}(projectId=${project.id})}"
+          th:object="${revision}"
+          method="post">
+
+        <label for="feedback">Feedback:</label>
+
+        <textarea id="feedback"
+                  th:field="*{feedback}"
+                  required></textarea>
+
+        <br>
+
+        <button type="submit">Add Revision</button>
+    </form>
+
+    <button type="button" onclick="history.back()">Back</button>
+
+</body>
+</html>
