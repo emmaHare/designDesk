@@ -30,4 +30,15 @@ public class GlobalExceptionHandler {
 
         return "error/404";
     }
+
+    @ExceptionHandler(RevisionNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleRevisionNotFound(
+            RevisionNotFoundException exception,
+            Model model
+    ) {
+        model.addAttribute("errorMessage", exception.getMessage());
+
+        return "Erro/404";
+    }
 }

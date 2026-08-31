@@ -1,5 +1,6 @@
 package com.emmahare.designdesk.service;
 
+import com.emmahare.designdesk.exception.RevisionNotFoundException;
 import com.emmahare.designdesk.model.Revision;
 import com.emmahare.designdesk.repository.RevisionRepository;
 import org.springframework.stereotype.Service;
@@ -33,10 +34,7 @@ public class RevisionService {
 
     public Revision markAsCompleted(Long id) {
         Revision revision = revisionRepository.findById(id)
-                .orElseThrow(() ->
-                        new IllegalArgumentException(
-                                "Revision with ID " + id + " was not found."
-                        ));
+                .orElseThrow(() -> new RevisionNotFoundException(id));
 
         revision.setCompleted(true);
 
