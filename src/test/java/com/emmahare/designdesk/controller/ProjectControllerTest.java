@@ -5,6 +5,7 @@ import com.emmahare.designdesk.model.Project;
 import com.emmahare.designdesk.model.ProjectStatus;
 import com.emmahare.designdesk.service.ClientService;
 import com.emmahare.designdesk.service.ProjectService;
+import com.emmahare.designdesk.service.RevisionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,11 +27,14 @@ public class ProjectControllerTest {
     @Mock
     private ClientService clientService;
 
+    @Mock
+    private RevisionService revisionService;
+
     private ProjectController projectController;
 
     @BeforeEach
     void setUp() {
-        projectController = new ProjectController(projectService, clientService);
+        projectController = new ProjectController(projectService, clientService, revisionService);
     }
 
     @Test

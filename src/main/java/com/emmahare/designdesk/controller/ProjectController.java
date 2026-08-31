@@ -4,6 +4,7 @@ import com.emmahare.designdesk.model.Project;
 import com.emmahare.designdesk.model.ProjectStatus;
 import com.emmahare.designdesk.service.ClientService;
 import com.emmahare.designdesk.service.ProjectService;
+import com.emmahare.designdesk.service.RevisionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +15,14 @@ public class ProjectController {
 
     private final ProjectService projectService;
     private final ClientService clientService;
+    private final RevisionService revisionService;
 
-    public ProjectController(ProjectService projectService, ClientService clientService) {
+    public ProjectController(ProjectService projectService,
+                             ClientService clientService,
+                             RevisionService revisionService) {
         this.projectService = projectService;
         this.clientService = clientService;
+        this.revisionService = revisionService;
     }
 
     @GetMapping
@@ -41,6 +46,7 @@ public class ProjectController {
         Project project = projectService.findById(id);
 
         model.addAttribute("project", project);
+        model.addAttribute("revisions", revisionService.findByProjectId(id));
 
         return "projects/details";
     }

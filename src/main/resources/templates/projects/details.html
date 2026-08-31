@@ -49,6 +49,31 @@
         <button type="submit">Mark as Finished</button>
     </form>
 
+    <h2>Revisions</h2>
+
+    <p th:if="${revisions.isEmpty()}">
+        No revisions for this project.
+    </p>
+
+    <div th:each="revision : ${revisions}">
+        <p>
+            Date:
+            <span th:text="${revision.date}">2026-08-31</span>
+        </p>
+
+        <p>
+            Feedback:
+            <span th:text="${revision.feedback}">Revision feedback</span>
+        </p>
+
+        <p>
+            Completed:
+            <span th:text="${revision.completed ? 'Yes' : 'No'}">No</span>
+        </p>
+
+        <hr>
+    </div>
+
     <button type="button" onclick="history.back()">Back</button>
 
 </body>
