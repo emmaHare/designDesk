@@ -30,4 +30,16 @@ public class RevisionService {
     public List<Revision> findByProjectId(Long projectId) {
         return revisionRepository.findByProjectId(projectId);
     }
+
+    public Revision markAsCompleted(Long id) {
+        Revision revision = revisionRepository.findById(id)
+                .orElseThrow(() ->
+                        new IllegalArgumentException(
+                                "Revision with ID " + id + " was not found."
+                        ));
+
+        revision.setCompleted(true);
+
+        return revisionRepository.save(revision);
+    }
 }

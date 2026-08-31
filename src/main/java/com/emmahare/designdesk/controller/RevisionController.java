@@ -53,4 +53,14 @@ public class RevisionController {
 
         return "revisions/new";
     }
+
+    @PostMapping("/{id}/complete")
+    public String markRevisionAsCompleted(
+            @PathVariable Long id,
+            @RequestParam Long projectId
+    ) {
+        revisionService.markAsCompleted(id);
+
+        return "redirect:/projects/" + projectId;
+    }
 }

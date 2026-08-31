@@ -71,6 +71,12 @@
             <span th:text="${revision.completed ? 'Yes' : 'No'}">No</span>
         </p>
 
+        <form th:if="${!revision.completed}"
+              th:action="@{/revisions/{id}/complete(id=${revision.id}, projectId=${project.id})}"
+              method="post">
+            <button type="submit">Mark as Completed</button>
+        </form>
+
         <hr>
     </div>
 
