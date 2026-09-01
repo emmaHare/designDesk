@@ -18,7 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 
 @ExtendWith(MockitoExtension.class)
-public class ClientControllerTest {
+class ClientControllerTest {
 
     @Mock
     private ClientService clientService;
