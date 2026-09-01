@@ -39,6 +39,6 @@ public class GlobalExceptionHandler {
     ) {
         model.addAttribute("errorMessage", exception.getMessage());
 
-        return "Erro/404";
+        return "Error/404";
     }
 }
