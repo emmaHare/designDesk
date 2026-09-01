@@ -1,11 +1,12 @@
 package com.emmahare.designdesk.controller;
 
 import com.emmahare.designdesk.model.Client;
-import com.emmahare.designdesk.model.Project;
 import com.emmahare.designdesk.service.ClientService;
 import com.emmahare.designdesk.service.ProjectService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -37,8 +38,16 @@ public class ClientController {
         }
 
         @PostMapping
-        public String createClient(@ModelAttribute Client client) {
+        public String createClient(
+                @Valid @ModelAttribute Client client,
+                BindingResult bindingResult
+        ) {
+            if (bindingResult.hasErrors()) {
+                return "clients/new";
+            }
+
             clientService.save(client);
+
             return "redirect:/clients";
         }
 
@@ -64,8 +73,13 @@ public class ClientController {
         @PostMapping("/{id}/edit")
         public String updateClient(
                 @PathVariable Long id,
-                @ModelAttribute Client client
+                @Valid @ModelAttribute Client client,
+                BindingResult bindingResult
         ) {
+            if(bindingResult.hasErrors()) {
+                return "clients/edit";
+            }
+
             clientService.update(id, client);
 
             return "redirect:/clients/" + id;

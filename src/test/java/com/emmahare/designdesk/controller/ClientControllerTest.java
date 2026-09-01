@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
 import java.util.List;
 
@@ -86,12 +87,29 @@ class ClientControllerTest {
     @Test
     void createClientShouldSaveClientAndRedirect() {
         Client client = new Client();
-        client.setName("New Client");
+        BindingResult bindingResult = mock(BindingResult.class);
 
-        String viewName = clientController.createClient(client);
+        when(bindingResult.hasErrors()).thenReturn(false);
+
+        String viewName = clientController.createClient(client, bindingResult);
+
+        assertEquals("redirect:/clients", viewName);
 
         verify(clientService).save(client);
-        assertEquals("redirect:/clients", viewName);
+    }
+
+    @Test
+    void createClientShouldReturnNewPageWhenValidationFails() {
+        Client client = new Client();
+        BindingResult bindingResult = mock(BindingResult.class);
+
+        when(bindingResult.hasErrors()).thenReturn(true);
+
+        String viewName = clientController.createClient(client, bindingResult);
+
+        assertEquals("clients/new", viewName);
+
+        verify(clientService, never()).save(client);
     }
 
     @Test
@@ -113,17 +131,30 @@ class ClientControllerTest {
 
     @Test
     void updateClientShouldSaveChangesAndRedirect() {
-        Client editedClient = new Client();
-        editedClient.setName("New Name");
-        editedClient.setEmail("new@example.com");
-        editedClient.setInstagramHandle("@new");
-        editedClient.setNotes("New notes");
+        Client client = new Client();
+        BindingResult bindingResult = mock(BindingResult.class);
 
-        String viewName = clientController.updateClient(1L, editedClient);
+        when(bindingResult.hasErrors()).thenReturn(false);
 
-        verify(clientService).update(1L, editedClient);
+        String viewName = clientController.updateClient(1L, client, bindingResult);
 
         assertEquals("redirect:/clients/1", viewName);
+
+        verify(clientService).update(1L, client);
+    }
+
+    @Test
+    void updateClientShouldReturnEditPageWhenValidationFails() {
+        Client client = new Client();
+        BindingResult bindingResult = mock(BindingResult.class);
+
+        when(bindingResult.hasErrors()).thenReturn(true);
+
+        String viewName = clientController.updateClient(1L, client, bindingResult);
+
+        assertEquals("clients/edit", viewName);
+
+        verify(clientService, never()).update(1L, client);
     }
 
     @Test

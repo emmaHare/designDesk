@@ -1,6 +1,8 @@
 package com.emmahare.designdesk.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Email;
 
 @Entity
 @Table(name = "clients")
@@ -10,9 +12,11 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Name is required")
     @Column(nullable = false, length = 150)
     private String name;
 
+    @Email(message = "Please enter a valid email address")
     @Column(unique = true, length = 255)
     private String email;
 
