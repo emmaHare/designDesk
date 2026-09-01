@@ -32,6 +32,7 @@ public class RevisionController {
     ) {
         Project project = projectService.findById(projectId);
 
+        //Project, date and completion status are set automatically when a revision is created.
         revision.setProject(project);
         revision.setDate(LocalDate.now());
         revision.setCompleted(false);

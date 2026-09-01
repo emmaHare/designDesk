@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+/**
+ * Handles custom application exceptions and displays user-friendly error pages.
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 

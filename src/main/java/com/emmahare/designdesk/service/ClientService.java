@@ -21,6 +21,8 @@ public class ClientService {
     }
 
     public Client update(Long id, Client updatedClient) {
+
+        //Update the existing persisted client instead of replacing it with the form object.
         Client existingClient = findById(id);
 
         existingClient.setName(updatedClient.getName());

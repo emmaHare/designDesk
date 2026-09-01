@@ -36,12 +36,14 @@ public class Project {
     private String description;
 
     @NotNull(message = "Project type is required")
+    //PostgreSQL enum mapping using Hibernate's named enum type.
     @Enumerated(EnumType.STRING)
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     @Column(nullable = false, columnDefinition = "project_type")
     private ProjectType type;
 
     @NotNull(message = "Status is required")
+    //PostgreSQL enum mapping using Hibernate's named enum type.
     @Enumerated(EnumType.STRING)
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     @Column(nullable = false, columnDefinition = "project_status")

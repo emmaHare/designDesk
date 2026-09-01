@@ -35,6 +35,8 @@ public class ProjectService {
     }
 
     public Project update(Long id, Project updatedProject) {
+
+        //Update the existing persisted project instead of replacing it with the form object.
         Project existingProject = findById(id);
 
         existingProject.setTitle(updatedProject.getTitle());

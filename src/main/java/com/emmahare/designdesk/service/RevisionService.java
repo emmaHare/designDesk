@@ -32,7 +32,10 @@ public class RevisionService {
         return revisionRepository.findByProjectId(projectId);
     }
 
+
     public Revision markAsCompleted(Long id) {
+
+        //A missing revision is handled through the applications custom 404 exception.
         Revision revision = revisionRepository.findById(id)
                 .orElseThrow(() -> new RevisionNotFoundException(id));
 

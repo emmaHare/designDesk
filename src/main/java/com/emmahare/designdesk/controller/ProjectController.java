@@ -67,6 +67,7 @@ public class ProjectController {
             BindingResult bindingResult,
             Model model
     ) {
+        //Reload clients so the dropdown can still be displayed after validation fails.
         if(bindingResult.hasErrors()) {
             model.addAttribute("clients", clientService.findAll());
             return "projects/new";
@@ -93,6 +94,7 @@ public class ProjectController {
             BindingResult bindingResult,
             Model model
     ) {
+        //Reload clients so the dropdown can still be displayed after validation fails.
         if(bindingResult.hasErrors()) {
             model.addAttribute("clients", clientService.findAll());
             return "projects/edit";
