@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
 import java.util.List;
 
@@ -125,12 +126,41 @@ class ProjectControllerTest {
     @Test
     void createProjectShouldSaveProjectAndRedirect() {
         Project project = new Project();
-        project.setTitle("New Project");
+        BindingResult bindingResult = mock(BindingResult.class);
+        Model model = mock(Model.class);
 
-        String viewName = projectController.createProject(project);
+        when(bindingResult.hasErrors()).thenReturn(false);
+
+        String viewName = projectController.createProject(
+                project,
+                bindingResult,
+                model
+        );
+
+        assertEquals("redirect:/projects", viewName);
 
         verify(projectService).save(project);
-        assertEquals("redirect:/projects", viewName);
+    }
+
+    @Test
+    void createProjectShouldReturnNewPageWhenValidationFails() {
+        Project project = new Project();
+        BindingResult bindingResult = mock(BindingResult.class);
+        Model model = mock(Model.class);
+
+        when(bindingResult.hasErrors()).thenReturn(true);
+
+        String viewName = projectController.createProject(
+                project,
+                bindingResult,
+                model
+        );
+
+        assertEquals("projects/new", viewName);
+
+        verify(clientService).findAll();
+        verify(model).addAttribute(eq("clients"), any());
+        verify(projectService, never()).save(project);
     }
 
     @Test
@@ -160,13 +190,44 @@ class ProjectControllerTest {
 
     @Test
     void updateProjectShouldUpdateAndRedirect() {
-        Project updatedProject = new Project();
-        updatedProject.setTitle("Updated Project");
+        Project project = new Project();
+        BindingResult bindingResult = mock(BindingResult.class);
+        Model model = mock(Model.class);
 
-        String viewName = projectController.updateProject(1L, updatedProject);
+        when(bindingResult.hasErrors()).thenReturn(false);
 
-        verify(projectService).update(1L, updatedProject);
+        String viewName = projectController.updateProject(
+                1L,
+                project,
+                bindingResult,
+                model
+        );
+
         assertEquals("redirect:/projects/1", viewName);
+
+        verify(projectService).update(1L, project);
+    }
+
+    @Test
+    void updateProjectShouldReturnEditPageWhenValidationFails() {
+        Project project = new Project();
+        BindingResult bindingResult = mock(BindingResult.class);
+        Model model = mock(Model.class);
+
+        when(bindingResult.hasErrors()).thenReturn(true);
+
+        String viewName = projectController.updateProject(
+                1L,
+                project,
+                bindingResult,
+                model
+        );
+
+        assertEquals("projects/edit", viewName);
+
+        verify(clientService).findAll();
+        verify(model).addAttribute(eq("clients"), any());
+        verify(projectService, never()).update(1L, project);
     }
 
     @Test

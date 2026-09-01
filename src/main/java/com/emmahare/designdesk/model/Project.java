@@ -6,6 +6,8 @@ import org.hibernate.type.SqlTypes;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "projects")
@@ -15,26 +17,31 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Title is required")
     @Column(nullable = false, length = 200)
     private String title;
 
+    @NotNull(message = "Client is required")
     @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
     private LocalDate deadline;
 
+    @NotNull(message = "Price is required")
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
     @Column(columnDefinition = "Text")
     private String description;
 
+    @NotNull(message = "Project type is required")
     @Enumerated(EnumType.STRING)
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     @Column(nullable = false, columnDefinition = "project_type")
     private ProjectType type;
 
+    @NotNull(message = "Status is required")
     @Enumerated(EnumType.STRING)
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     @Column(nullable = false, columnDefinition = "project_status")

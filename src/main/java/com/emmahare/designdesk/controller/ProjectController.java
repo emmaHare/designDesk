@@ -5,8 +5,10 @@ import com.emmahare.designdesk.model.ProjectStatus;
 import com.emmahare.designdesk.service.ClientService;
 import com.emmahare.designdesk.service.ProjectService;
 import com.emmahare.designdesk.service.RevisionService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -60,9 +62,17 @@ public class ProjectController {
     }
 
     @PostMapping
-    public String createProject(@ModelAttribute Project project) {
-        projectService.save(project);
+    public String createProject(
+            @Valid @ModelAttribute Project project,
+            BindingResult bindingResult,
+            Model model
+    ) {
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("clients", clientService.findAll());
+            return "projects/new";
+        }
 
+        projectService.save(project);
         return "redirect:/projects";
     }
 
@@ -79,10 +89,16 @@ public class ProjectController {
     @PostMapping("/{id}/edit")
     public String updateProject(
             @PathVariable Long id,
-            @ModelAttribute Project project
+            @Valid @ModelAttribute Project project,
+            BindingResult bindingResult,
+            Model model
     ) {
-        projectService.update(id, project);
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("clients", clientService.findAll());
+            return "projects/edit";
+        }
 
+        projectService.update(id, project);
         return "redirect:/projects/" + id;
     }
 
